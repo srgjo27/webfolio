@@ -9,9 +9,9 @@ import { ScramblingText } from "@/components/ui/scrambling-text";
 
 
 const HexagonIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 86.6 100" fill="currentColor" {...props}>
-      <polygon points="43.3,0 86.6,25 86.6,75 43.3,100 0,75 0,25" />
-    </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 86.6 100" fill="currentColor" {...props}>
+    <polygon points="43.3,0 86.6,25 86.6,75 43.3,100 0,75 0,25" />
+  </svg>
 );
 
 const experienceData = [
@@ -19,8 +19,8 @@ const experienceData = [
     role: "Front End Developer",
     company: "PT. Bank Raya Indonesia",
     period: "Sep 2024 - Present",
-    description: "Developed a mobile-based digital banking application Raya using Flutter, incorporating webview components for rendering specific web-based modules within the app. Integrating endpoints with the user interface to ensure application functionality. Optimized application performance and performed code debugging and maintenance. Collaborate with Backend team, QA and UI/UX designers to align design and functionality. Followed the Scrum methodology within the SDLC, participating in sprint planning, daily stand-ups, reviews, and retrospectives. Utilized Jira for task and sprint management, and Confluence for documentation and knowledge sharing.",
-    tags: ["Flutter", "Mobile Development", "API Integration", "Performance Optimization", "Scrum", "Jira", "Confluence"],
+    description: "Developed Raya's digital banking application with Flutter, implemented MVVM architecture and efficient state management, and integrated WebView components to seamlessly display dynamic web modules within the application. Integrating endpoints with the user interface to ensure application functionality. Optimized application performance and performed code debugging and maintenance. Collaborate with Backend team, QA and UI/UX designers to align design and functionality. Followed the Scrum methodology within the SDLC, participating in sprint planning, daily stand-ups, reviews, and retrospectives. Utilized Jira for task and sprint management, and Confluence for documentation and knowledge sharing.",
+    tags: ["Flutter", "Mobile Development", "MVVM", "staked", "API Integration", "Performance Optimization", "Scrum", "Jira", "Confluence"],
   },
   {
     role: "Software Engineer",
@@ -45,10 +45,10 @@ export default function ExperiencePage() {
     const tl = gsap.timeline({ defaults: { ease: 'power3.out', duration: 0.7 } });
 
     tl.from('.experience-title', { opacity: 0, x: -30 })
-      .from('.experience-card', { 
-        opacity: 0, 
-        y: 40, 
-        stagger: 0.2 
+      .from('.experience-card', {
+        opacity: 0,
+        y: 40,
+        stagger: 0.2
       }, '-=0.5');
 
   }, { scope: main });
@@ -62,8 +62,8 @@ export default function ExperiencePage() {
         {experienceData.map((exp, index) => (
           <Card key={index} className="experience-card relative overflow-hidden hover:shadow-lg hover:shadow-primary/10">
             <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-                <HexagonIcon className="absolute w-32 h-auto text-primary/5 -right-8 -bottom-8" />
-                <HexagonIcon className="absolute w-20 h-auto text-primary/10 right-4 bottom-16" />
+              <HexagonIcon className="absolute w-32 h-auto text-primary/5 -right-8 -bottom-8" />
+              <HexagonIcon className="absolute w-20 h-auto text-primary/10 right-4 bottom-16" />
             </div>
             <CardHeader>
               <div className="flex justify-between items-start">
