@@ -42,7 +42,7 @@ const projectsData = [
       "Search Experience: Real-time search dengan category filtering.",
       "Cart Management: Swipe gestures dan quantity controls.",
     ],
-    image: "https://placehold.co/600x400.png",
+    image: "/images/projects/ecoapp-screenshot.png",
     imageHint: "mobile app",
     tags: ["Flutter", "Riverpod", "UI/UX", "REST API"],
     github: "https://github.com/srgjo27/ecoapp",
