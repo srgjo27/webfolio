@@ -45,7 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
-        <title>Cyberfolio AI</title>
+        <title>Webfolio</title>
         <meta
           name="description"
           content="A personal portfolio with an AI career advisor."
