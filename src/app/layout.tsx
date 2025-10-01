@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { Toaster } from '@/components/ui/toaster';
-import { BinaryBackground } from '@/components/layout/binary-background';
-import { EntryGate } from '@/components/layout/entry-gate';
-import { Sidebar } from '@/components/layout/sidebar';
-import { BottomNav } from '@/components/layout/bottom-nav';
+import { useState, useEffect } from "react";
+import { Toaster } from "@/components/ui/toaster";
+import { BinaryBackground } from "@/components/layout/binary-background";
+import { EntryGate } from "@/components/layout/entry-gate";
+import { Sidebar } from "@/components/layout/sidebar";
+import { BottomNav } from "@/components/layout/bottom-nav";
 import {
   Home,
   Briefcase,
@@ -13,19 +13,19 @@ import {
   Folders,
   Mail,
   BookUser,
-} from 'lucide-react';
-import './globals.css';
+} from "lucide-react";
+import "./globals.css";
 
 const leftMenuItems = [
-  { href: '/', label: 'Home', icon: Home },
-  { href: '/experience', label: 'Experience', icon: Briefcase },
-  { href: '/education', label: 'Education', icon: GraduationCap },
+  { href: "/", label: "Home", icon: Home },
+  { href: "/experience", label: "Experience", icon: Briefcase },
+  { href: "/education", label: "Education", icon: GraduationCap },
 ];
 
 const rightMenuItems = [
-  { href: '/projects', label: 'Projects', icon: Folders },
-  { href: '/contact', label: 'Contact', icon: Mail },
-  { href: '/guestbook', label: 'Guestbook', icon: BookUser },
+  { href: "/projects", label: "Projects", icon: Folders },
+  { href: "/contact", label: "Contact", icon: Mail },
+  { href: "/guestbook", label: "Guestbook", icon: BookUser },
 ];
 
 const allMenuItems = [...leftMenuItems, ...rightMenuItems];

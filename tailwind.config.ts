@@ -1,9 +1,10 @@
 
-import type { Config } from 'tailwindcss';
+import type {Config} from 'tailwindcss';
 
 export default {
-  darkMode: 'class',
+  darkMode: ['class'],
   content: [
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
@@ -114,13 +115,13 @@ export default {
           '100%': { transform: 'translateX(0.3rem)', opacity: '0' },
         },
         'cyber-pulse': {
-          '0%, 100%': {
-            transform: 'translateY(0)',
-            filter: 'drop-shadow(0 0 3px hsl(var(--primary) / 0.4))'
+          '0%, 100%': { 
+              transform: 'translateY(0)',
+              filter: 'drop-shadow(0 0 3px hsl(var(--primary) / 0.4))'
           },
-          '50%': {
-            transform: 'translateY(-4px)',
-            filter: 'drop-shadow(0 0 8px hsl(var(--primary) / 0.8))'
+          '50%': { 
+              transform: 'translateY(-4px)',
+              filter: 'drop-shadow(0 0 8px hsl(var(--primary) / 0.8))'
           },
         },
         'emoji-float': {
@@ -129,6 +130,10 @@ export default {
           '50%': { transform: 'translateY(0px) rotate(0deg)' },
           '75%': { transform: 'translateY(4px) rotate(3deg)' },
           '100%': { transform: 'translateY(0px) rotate(0deg)' },
+        },
+        'roadmap-flow': {
+          'from': { top: '0', opacity: '1' },
+          'to': { top: '100%', opacity: '0' },
         },
       },
       animation: {
@@ -143,6 +148,7 @@ export default {
         'chevron-move': 'chevron-move 2s ease-in-out infinite',
         'cyber-pulse': 'cyber-pulse 5s ease-in-out infinite',
         'emoji-float': 'emoji-float 5s ease-in-out infinite',
+        'roadmap-flow': 'roadmap-flow 4.5s linear infinite',
       },
     },
   },
