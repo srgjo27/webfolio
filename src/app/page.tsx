@@ -4,15 +4,21 @@ import { useRef, type ComponentProps } from "react";
 import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
-
-// UI Components
+import { projectsData } from "@/constant/projects-data";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScramblingText } from "@/components/ui/scrambling-text";
-
-// Icons
-import { ChevronRight, Database, Flame, Code, Leaf } from "lucide-react";
+import {
+  ChevronRight,
+  Database,
+  Flame,
+  Code,
+  Leaf,
+  FolderOpen,
+  Rocket,
+  Monitor,
+} from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -33,19 +39,15 @@ import {
   faJira,
   faReact,
 } from "@fortawesome/free-brands-svg-icons";
-
-// Types
 interface SkillItem {
   name: string;
   icon: (props: any) => JSX.Element;
 }
-
 interface AnimationConfig {
   ease: string;
   duration: number;
 }
 
-// SVG Icon Components
 const HexagonIcon = (props: ComponentProps<"svg">) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +59,6 @@ const HexagonIcon = (props: ComponentProps<"svg">) => (
   </svg>
 );
 
-// Constants
 const ANIMATION_CONFIG: AnimationConfig = {
   ease: "power3.out",
   duration: 0.7,
@@ -165,6 +166,12 @@ const TECHNOLOGIES: SkillItem[] = [
     ),
   },
   {
+    name: "React",
+    icon: (props) => (
+      <FontAwesomeIcon icon={faReact} {...props} style={{ color: "#61DAFB" }} />
+    ),
+  },
+  {
     name: "Next JS",
     icon: (props) => (
       <FontAwesomeIcon icon={faReact} {...props} style={{ color: "#000000" }} />
@@ -228,25 +235,6 @@ const ALL_SKILLS: SkillItem[] = [
   ...PROGRAMMING_LANGUAGES,
   ...TECHNOLOGIES,
 ] as const;
-
-// Helper Components
-function HexagonBackground() {
-  return (
-    <div className="absolute bottom-0 right-0 h-1/2 w-1/2" aria-hidden="true">
-      <div className="absolute inset-0 z-0">
-        <HexagonIcon className="absolute w-48 h-auto text-accent/10 -right-10 -bottom-10" />
-        <HexagonIcon
-          className="absolute w-32 h-auto text-accent/20 animate-pulse-slow"
-          style={{ bottom: "20%", right: "40%", animationDelay: "1s" }}
-        />
-        <HexagonIcon
-          className="absolute w-24 h-auto text-accent/10 animate-pulse-slow"
-          style={{ bottom: "50%", right: "10%" }}
-        />
-      </div>
-    </div>
-  );
-}
 
 function AvatarWithAnimation() {
   return (
@@ -382,12 +370,10 @@ function SocialLinks() {
             className="h-4 w-4 transition-transform duration-300 group-hover:scale-110"
           />
 
-          {/* Tooltip */}
           <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-foreground text-background text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
             {label}
           </div>
 
-          {/* Glow Effect */}
           <div className="absolute inset-0 bg-current opacity-0 group-hover:opacity-20 blur-md rounded-full transition-opacity duration-300" />
         </a>
       ))}
@@ -398,10 +384,8 @@ function SocialLinks() {
 function ProfileCard() {
   return (
     <Card className="profile-card border-accent relative overflow-hidden bg-gradient-to-br from-card via-card/90 to-card/50 backdrop-blur-sm">
-      {/* Enhanced Background Pattern */}
       <div className="absolute inset-0 opacity-[0.03]">
         <div className="absolute top-0 left-0 w-full h-full">
-          {/* Grid Pattern */}
           <div
             className="absolute inset-0"
             style={{
@@ -410,7 +394,6 @@ function ProfileCard() {
               backgroundSize: "20px 20px",
             }}
           />
-          {/* Hexagon Decorations */}
           <HexagonIcon className="absolute w-64 h-auto text-primary/20 -top-16 -left-16 animate-pulse-slow" />
           <HexagonIcon
             className="absolute w-32 h-auto text-accent/30 top-8 right-12 animate-pulse-slow"
@@ -423,11 +406,9 @@ function ProfileCard() {
         </div>
       </div>
 
-      {/* Animated Border Glow */}
       <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 animate-pulse rounded-lg blur-sm" />
       <div className="absolute inset-[1px] bg-card rounded-lg" />
 
-      {/* Status Indicator */}
       <div className="absolute top-4 right-4 z-20">
         <div className="flex items-center gap-2 px-3 py-1 bg-green-500/10 border border-green-500/20 rounded-full backdrop-blur-sm">
           <div className="relative">
@@ -443,7 +424,6 @@ function ProfileCard() {
       <CardHeader className="flex flex-row items-center gap-6 relative z-10 pb-4">
         <div className="relative group">
           <AvatarWithAnimation />
-          {/* Avatar Glow Effect */}
           <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-accent/30 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         </div>
 
@@ -460,8 +440,6 @@ function ProfileCard() {
               className="text-lg font-medium text-muted-foreground"
             />
           </div>
-
-          {/* Role Tags */}
           <div className="flex gap-2 flex-wrap">
             {["Frontend", "Backend", "Mobile", "Web", "Freelance"].map(
               (role, index) => (
@@ -479,7 +457,6 @@ function ProfileCard() {
       </CardHeader>
 
       <CardContent className="relative z-10 space-y-6">
-        {/* Enhanced Description */}
         <div className="relative">
           <div className="absolute -left-2 top-0 w-1 h-full bg-gradient-to-b from-primary to-accent rounded-full opacity-50" />
           <p className="profile-description text-base text-foreground/90 leading-relaxed pl-4 relative">
@@ -487,20 +464,32 @@ function ProfileCard() {
           </p>
         </div>
 
-        {/* Stats Section */}
         <div className="grid grid-cols-3 gap-4 py-4 border-y border-border/50">
           {[
-            { label: "Projects", value: "5", icon: "📁" },
-            { label: "Experience", value: "±2 Years", icon: "🚀" },
+            {
+              label: "Projects",
+              value: projectsData.length.toString(),
+              icon: FolderOpen,
+              color: "text-blue-500",
+            },
+            {
+              label: "Experience",
+              value: "±2 Years",
+              icon: Rocket,
+              color: "text-orange-500",
+            },
             {
               label: "Technologies",
               value: `${ALL_SKILLS.length}+`,
-              icon: "💻",
+              icon: Monitor,
+              color: "text-green-500",
             },
           ].map((stat, index) => (
             <div key={stat.label} className="text-center group cursor-pointer">
-              <div className="text-2xl mb-1 group-hover:scale-110 transition-transform duration-300">
-                {stat.icon}
+              <div className="mb-2 group-hover:scale-110 transition-transform duration-300 flex justify-center">
+                <stat.icon
+                  className={`h-8 w-8 ${stat.color} group-hover:animate-pulse`}
+                />
               </div>
               <div className="text-lg font-bold text-primary group-hover:text-accent transition-colors duration-300">
                 {stat.value}
@@ -510,11 +499,8 @@ function ProfileCard() {
           ))}
         </div>
 
-        {/* Action Links */}
         <div className="profile-links flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-2">
           <ContactLink />
-
-          {/* Social Links with Enhanced Styling */}
           <div className="flex items-center gap-3">
             <span className="text-sm text-muted-foreground hidden sm:block">
               Connect:
@@ -523,7 +509,6 @@ function ProfileCard() {
           </div>
         </div>
 
-        {/* Decorative Elements */}
         <div className="absolute bottom-4 right-4 opacity-20">
           <div className="flex gap-2">
             <div className="w-2 h-2 bg-primary rounded-full animate-bounce" />
@@ -553,8 +538,6 @@ function SkillBadge({ skill }: { skill: SkillItem }) {
     >
       <skill.icon className="h-4 w-4 flex-shrink-0 transition-transform duration-300 group-hover:rotate-12" />
       <span className="text-sm font-medium">{skill.name}</span>
-
-      {/* Subtle glow effect on hover */}
       <div
         className="absolute inset-0 bg-gradient-to-r from-primary/10 to-accent/10 opacity-0 
                       transition-opacity duration-300 group-hover:opacity-100 -z-10"
@@ -566,7 +549,6 @@ function SkillBadge({ skill }: { skill: SkillItem }) {
 function TechStackCard() {
   return (
     <Card className="tech-stack-card border-accent relative overflow-hidden bg-gradient-to-br from-card to-card/50">
-      {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-4 right-4">
           <HexagonIcon className="w-16 h-auto text-primary animate-pulse-slow" />
@@ -601,7 +583,6 @@ function TechStackCard() {
       </CardHeader>
 
       <CardContent className="relative">
-        {/* Languages Section */}
         <div className="mb-6">
           <h4 className="text-sm font-semibold text-primary mb-3 flex items-center gap-2">
             <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
@@ -614,7 +595,6 @@ function TechStackCard() {
           </div>
         </div>
 
-        {/* Divider */}
         <div className="relative my-6">
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-border/50" />
@@ -626,7 +606,6 @@ function TechStackCard() {
           </div>
         </div>
 
-        {/* Technologies Section */}
         <div>
           <h4 className="text-sm font-semibold text-accent mb-3 flex items-center gap-2">
             <div
@@ -642,7 +621,6 @@ function TechStackCard() {
           </div>
         </div>
 
-        {/* Progress Bar Animation */}
         <div className="mt-6 space-y-2">
           <div className="flex justify-between text-xs text-muted-foreground">
             <span>Skill Level</span>
