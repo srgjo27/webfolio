@@ -32,7 +32,7 @@ export function BottomNav({ items }: BottomNavProps) {
       aria-label="Bottom navigation"
     >
       <div className="flex justify-around">
-        {items.map((item) => (
+        {(items || []).map((item) => (
           <NavigationLink
             key={item.href}
             item={item}

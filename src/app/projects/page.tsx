@@ -6,7 +6,7 @@ import { gsap } from "gsap";
 import { Dialog } from "@/components/ui/dialog";
 import { ProjectCard } from "@/components/ui/project-card";
 import { ProjectDialog } from "@/components/ui/project-dialog";
-import { projectsData } from "@/constant/projects-data";
+import { projectsData } from "@/constants/projects-data";
 
 export default function ProjectsPage() {
   const containerRef = useRef<HTMLDivElement>(null);

@@ -37,6 +37,8 @@ const SITE_METADATA = {
       "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap",
     sourceCodePro:
       "https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&display=swap",
+    jetBrainsMono:
+      "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap",
   },
 } as const;
 
@@ -78,6 +80,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         />
         <link href={SITE_METADATA.fonts.spaceGrotesk} rel="stylesheet" />
         <link href={SITE_METADATA.fonts.sourceCodePro} rel="stylesheet" />
+        <link href={SITE_METADATA.fonts.jetBrainsMono} rel="stylesheet" />
       </head>
       <body className="font-body antialiased">
         {renderMainContent()}

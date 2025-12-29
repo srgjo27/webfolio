@@ -1,188 +1,192 @@
 "use client";
 
-import { useState, useRef, KeyboardEvent, useEffect } from "react";
-import { Input } from "@/components/ui/input";
-import { Terminal, ShieldAlert, ShieldCheck } from "lucide-react";
-import { FallingBinaryStream } from "./falling-binary-stream";
+import { useState, useRef } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { Fingerprint, Scan, Power } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function EntryGate({ onUnlock }: { onUnlock: () => void }) {
-  const [otp, setOtp] = useState<string[]>(new Array(4).fill(""));
-  const [error, setError] = useState("");
-  const [attemptsLeft, setAttemptsLeft] = useState(3);
-  const [isBypassing, setIsBypassing] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const container = useRef<HTMLDivElement>(null);
+  const [status, setStatus] = useState<"idle" | "scanning" | "success">("idle");
+  const [scanProgress, setScanProgress] = useState(0);
 
-  const [correctCode, setCorrectCode] = useState("");
-  const [hint, setHint] = useState("");
+  const handleInitialize = () => {
+    if (status !== "idle") return;
+    setStatus("scanning");
+  };
 
-  useEffect(() => {
-    // Generate code and hint on client mount to avoid hydration mismatch
-    const code = Math.floor(1000 + Math.random() * 9000).toString();
-    setCorrectCode(code);
-
-    const operation = Math.random() > 0.5 ? "add" : "subtract";
-    let hintText = "";
-    const codeNum = parseInt(code, 10);
-
-    if (operation === "add") {
-      const num1 = Math.floor(Math.random() * (codeNum - 100));
-      const num2 = codeNum - num1;
-      hintText = `${num1} + ${num2}`;
-    } else {
-      const num1 = codeNum + Math.floor(Math.random() * 1000) + 100;
-      const num2 = num1 - codeNum;
-      hintText = `${num1} - ${num2}`;
-    }
-    setHint(hintText);
-  }, []);
-
-  useEffect(() => {
-    if (isBypassing) {
-      const timer1 = setTimeout(() => {
-        setError("Bypassing security protocol...");
-      }, 2000);
-      const timer2 = setTimeout(() => {
-        onUnlock();
-      }, 4000);
-
-      return () => {
-        clearTimeout(timer1);
-        clearTimeout(timer2);
-      };
-    }
-  }, [isBypassing, onUnlock]);
-
-  useEffect(() => {
-    if (isBypassing || !correctCode || isSuccess) return;
-
-    const enteredCode = otp.join("");
-    if (enteredCode.length === otp.length) {
-      if (enteredCode === correctCode) {
-        setError("");
-        setIsSuccess(true);
-        setTimeout(() => {
-          onUnlock();
-        }, 2000);
-      } else {
-        const newAttemptsLeft = attemptsLeft - 1;
-        setAttemptsLeft(newAttemptsLeft);
-        setOtp(new Array(otp.length).fill(""));
-        inputRefs.current[0]?.focus();
-
-        if (newAttemptsLeft <= 0) {
-          setError("ACCESS DENIED. System lockout initiated.");
-          setIsBypassing(true);
-        } else {
-          setError(
-            `ACCESS DENIED. ${newAttemptsLeft} ${
-              newAttemptsLeft > 1 ? "attempts" : "attempt"
-            } remaining.`
-          );
+  useGSAP(
+    () => {
+      let primaryColor = "hsl(120, 61%, 50%)";
+      if (typeof window !== "undefined") {
+        const docStyle = getComputedStyle(document.documentElement);
+        const primaryVar = docStyle.getPropertyValue("--primary").trim();
+        if (primaryVar) {
+          primaryColor = `hsl(${primaryVar})`;
         }
       }
-    }
-  }, [otp, correctCode, isBypassing, isSuccess, onUnlock, attemptsLeft]);
 
-  const handleChange = (element: HTMLInputElement, index: number) => {
-    if (isNaN(Number(element.value))) {
-      return;
-    }
+      if (status === "scanning") {
+        const tl = gsap.timeline({
+          onComplete: () => {
+            setStatus("success");
+          },
+        });
 
-    const newOtp = [...otp];
-    newOtp[index] = element.value.slice(-1);
-    setOtp(newOtp);
+        tl.to(".scanner-line", {
+          height: "100%",
+          duration: 1.0,
+          ease: "power2.inOut",
+          yoyo: true,
+          repeat: 1,
+        });
 
-    if (element.value && index < otp.length - 1) {
-      inputRefs.current[index + 1]?.focus();
-    }
-  };
+        // Simulate progress
+        gsap.to({}, {
+          duration: 2.0,
+          onUpdate: function () {
+            setScanProgress(Math.round(this.progress() * 100));
+          },
+          ease: "none",
+        });
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>, index: number) => {
-    if (e.key === "Backspace" && !otp[index] && index > 0) {
-      inputRefs.current[index - 1]?.focus();
-    }
-  };
+        // Text scramble effect
+        tl.to(".status-text", {
+          opacity: 0,
+          duration: 0.1,
+          onComplete: () => {
+            const statusText = container.current?.querySelector(".status-text") as HTMLElement;
+            if (statusText) statusText.textContent = "ANALYZING BIOMETRICS...";
+          }
+        }, "<")
+          .to(".status-text", { opacity: 1, duration: 0.2 })
+          .to(".status-text", {
+            opacity: 0,
+            duration: 0.2,
+            delay: 0.5,
+            onComplete: () => {
+              const statusText = container.current?.querySelector(".status-text") as HTMLElement;
+              if (statusText) statusText.textContent = "VERIFYING IDENTITY...";
+            }
+          })
+          .to(".status-text", { opacity: 1, duration: 0.2 });
+
+      } else if (status === "success") {
+        const tl = gsap.timeline({
+          onComplete: () => {
+            setTimeout(onUnlock, 800);
+          }
+        });
+
+        tl.to(".fingerprint-icon", {
+          scale: 1.2,
+          color: primaryColor,
+          duration: 0.3,
+          ease: "back.out(1.7)",
+        })
+          .to(".scanner-container", {
+            boxShadow: `0 0 30px ${primaryColor}`,
+            borderColor: primaryColor,
+            duration: 0.5
+          }, "<")
+          .to(".status-text", {
+            opacity: 0,
+            y: -10,
+            duration: 0.3,
+            onComplete: () => {
+              const statusText = container.current?.querySelector(".status-text") as HTMLElement;
+              if (statusText) {
+                statusText.textContent = "ACCESS GRANTED";
+                statusText.style.color = primaryColor;
+                statusText.style.fontWeight = "bold";
+              }
+            }
+          })
+          .to(".status-text", {
+            opacity: 1,
+            y: 0,
+            duration: 0.3
+          });
+      }
+    },
+    { dependencies: [status], scope: container }
+  );
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center bg-background p-4 overflow-hidden">
-      {isBypassing && <FallingBinaryStream />}
-      <div className="w-full max-w-md rounded-lg border border-accent/20 bg-card/80 p-6 shadow-2xl shadow-accent/10 backdrop-blur-sm relative z-10">
-        <div className="flex items-center gap-4 mb-6">
-          <Terminal className="h-8 w-8 text-accent" />
-          <div>
-            <h2 className="text-2xl font-headline text-accent">
-              SECURE ACCESS
-            </h2>
-            <p className="text-sm text-muted-foreground font-code">
-              Authentication required to proceed.
-            </p>
-          </div>
-        </div>
+    <div
+      ref={container}
+      className="fixed inset-0 z-[200] flex items-center justify-center bg-black/90 backdrop-blur-md overflow-hidden"
+    >
+      <div className="absolute inset-0 z-0 opacity-20">
+        <div className="absolute top-[10%] left-[10%] w-[30vw] h-[30vw] bg-accent/20 rounded-full blur-[100px] animate-pulse-slow" />
+        <div className="absolute bottom-[10%] right-[10%] w-[30vw] h-[30vw] bg-primary/20 rounded-full blur-[100px] animate-pulse-slow" style={{ animationDelay: "1s" }} />
+      </div>
 
-        <div className="space-y-6">
-          <fieldset
-            disabled={isBypassing || !correctCode || isSuccess}
-            className="space-y-6"
-          >
-            <div className="space-y-2">
-              <label
-                htmlFor="access-code"
-                className="block text-sm font-medium text-foreground/80 font-code text-center"
-              >
-                Enter Access Code:
-              </label>
-              <div
-                className="flex justify-center gap-2 md:gap-4"
-                id="access-code"
-              >
-                {otp.map((data, index) => {
-                  return (
-                    <Input
-                      key={index}
-                      type="tel"
-                      pattern="[0-9]*"
-                      name="otp"
-                      maxLength={1}
-                      className={cn(
-                        "w-14 h-16 text-center text-3xl font-code bg-background/50 border-accent/30 focus:ring-accent",
-                        isSuccess && "border-accent ring-2 ring-accent"
-                      )}
-                      value={data}
-                      onChange={(e) =>
-                        handleChange(e.target as HTMLInputElement, index)
-                      }
-                      onKeyDown={(e) => handleKeyDown(e, index)}
-                      onFocus={(e) => e.target.select()}
-                      ref={(el) => {
-                        inputRefs.current[index] = el;
-                      }}
-                      autoFocus={index === 0}
-                    />
-                  );
-                })}
-              </div>
-            </div>
-
-            {isSuccess && (
-              <p className="text-accent text-sm font-code animate-pulse text-center flex items-center justify-center gap-2">
-                <ShieldCheck className="h-4 w-4" /> ACCESS GRANTED. Initializing
-                system...
-              </p>
-            )}
-            {error && !isSuccess && (
-              <p className="text-destructive text-sm font-code animate-pulse text-center flex items-center justify-center gap-2">
-                <ShieldAlert className="h-4 w-4" /> {error}
-              </p>
-            )}
-          </fieldset>
-        </div>
-        {!isBypassing && (
-          <p className="text-xs text-muted-foreground mt-4 font-code text-center">
-            Hint: {hint || "..."}
+      <div className="relative z-10 w-full max-w-sm p-8 flex flex-col items-center justify-center gap-8">
+        <div className="h-8 flex items-center justify-center">
+          <p className="status-text font-code text-sm tracking-widest text-muted-foreground">
+            {status === "idle" ? "SYSTEM STANDBY" : "INITIALIZING..."}
           </p>
-        )}
+        </div>
+
+        <div
+          className={cn(
+            "scanner-container relative w-48 h-48 rounded-full border-2 flex items-center justify-center cursor-pointer transition-all duration-500 overflow-hidden group",
+            status === "idle" ? "border-muted-foreground/30 hover:border-accent hover:shadow-[0_0_20px_hsl(var(--accent)/0.3)]" : "border-accent shadow-[0_0_20px_hsl(var(--accent)/0.2)]",
+            status === "success" && "border-primary shadow-[0_0_30px_hsl(var(--primary)/0.4)]"
+          )}
+          onClick={handleInitialize}
+        >
+          <div
+            className="absolute inset-0 opacity-20"
+            style={{
+              backgroundImage: "radial-gradient(circle at center, transparent 0%, black 100%), linear-gradient(0deg, transparent 49%, hsl(var(--accent)) 50%, transparent 51%), linear-gradient(90deg, transparent 49%, hsl(var(--accent)) 50%, transparent 51%)",
+              backgroundSize: "100% 100%, 20px 20px, 20px 20px"
+            }}
+          />
+
+          <div className="scanner-line absolute top-0 left-0 w-full h-0 bg-gradient-to-b from-accent/0 via-accent/50 to-accent/0 opacity-50 z-0" />
+
+          <div className="relative z-10 transition-transform duration-500">
+            {status === "idle" && (
+              <Power className="w-16 h-16 text-muted-foreground/50 group-hover:text-accent transition-colors duration-300" />
+            )}
+            {status === "scanning" && (
+              <Scan className="w-16 h-16 text-accent animate-pulse" />
+            )}
+            {status === "success" && (
+              <Fingerprint className="fingerprint-icon w-16 h-16 text-primary" />
+            )}
+          </div>
+
+          {status === "scanning" && (
+            <div className="absolute bottom-8 text-xs font-code text-accent">
+              {scanProgress}%
+            </div>
+          )}
+        </div>
+
+        <div className="text-center space-y-2 opacity-70">
+          {status === "idle" && (
+            <button
+              onClick={handleInitialize}
+              className="text-xs font-headline uppercase tracking-widest hover:text-accent transition-colors animate-pulse"
+            >
+              Click to Initialize
+            </button>
+          )}
+          {status === "scanning" && (
+            <p className="text-xs font-code text-accent/80">
+              Do not close the window...
+            </p>
+          )}
+          {status === "success" && (
+            <p className="text-xs font-code text-primary/80">
+              Welcome back, User.
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );

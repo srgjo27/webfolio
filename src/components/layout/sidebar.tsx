@@ -45,7 +45,7 @@ export function Sidebar({ items, side }: SidebarProps) {
         role="navigation"
         aria-label={`${side} navigation`}
       >
-        {items.map((item, index) => (
+        {Array.isArray(items) && items.map((item, index) => (
           <NavigationItem
             key={item.href}
             item={item}

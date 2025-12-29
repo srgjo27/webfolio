@@ -12,7 +12,7 @@ import React, { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import Image from "next/image";
-import { ICONS } from "@/constant/img_string";
+import { ICONS } from "@/constants/img_string";
 
 const educationData = [
   {
