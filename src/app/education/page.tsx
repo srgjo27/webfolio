@@ -1,168 +1,63 @@
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
-import { GraduationCap } from "lucide-react";
 import React, { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
-import Image from "next/image";
-import { ICONS } from "@/constants/img_string";
-
-const educationData = [
-  {
-    institution: "BINUS University",
-    degree: "Bachelor's Degree, Information Systems",
-    period: "2024 - 2026",
-    details: [
-      "Currently pursuing an online Bachelor's degree in Information Systems.",
-    ],
-    logo: ICONS.BINUS_LOGO,
-  },
-  {
-    institution: "Institut Teknologi Del",
-    degree: "Associate Degree, Information Technology",
-    period: "2021 - 2024",
-    details: [
-      "GPA: 3.56/4.00",
-      "Relevant Courses: Web Development, Mobile Development, Database Systems, Algorithms & Machine Learning",
-      "Developer for Kedaireka Matching Fund Program in 2023",
-      "Teaching Assistant / Practicum Assistant for Computer Architecture and Organization course TA. 2022/2023",
-      "Gemastik XV Competition Participation in 2022",
-    ],
-    logo: ICONS.IT_DEL_LOGO,
-  },
-];
+import { GraduationCap } from "lucide-react";
+import { EducationCard } from "@/components/education/education-card";
+import { educationData } from "@/constant/education-data";
 
 export default function EducationPage() {
-  const main = useRef(null);
+  const container = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
       const tl = gsap.timeline({
-        defaults: { ease: "power3.out", duration: 0.7 },
+        defaults: { ease: "power3.out", duration: 0.8 },
       });
 
-      tl.from(".education-title", { opacity: 0, x: -30 }).from(
-        ".education-card",
-        {
-          opacity: 0,
-          y: 40,
-          stagger: 0.2,
-        },
-        "-=0.5"
-      );
+      tl.from(".page-header", { opacity: 0, y: -20 })
+        .from(
+          ".education-card",
+          {
+            opacity: 0,
+            y: 30,
+            scale: 0.95,
+            stagger: 0.2,
+            clearProps: "all",
+          },
+          "-=0.4"
+        );
     },
-    { scope: main }
+    { scope: container }
   );
 
   return (
-    <div className="flex-1 space-y-8 p-4 md:p-8 pt-6" ref={main}>
-      <div className="flex items-center justify-between space-y-2">
-        <h2 className="education-title text-3xl font-bold tracking-tight font-headline">
-          Education
-        </h2>
+    <div className="min-h-screen p-4 md:p-8 pt-6 pb-24" ref={container}>
+      {/* Header */}
+      <div className="page-header flex flex-col gap-2 mb-12">
+        <div className="flex items-center gap-3">
+          <GraduationCap className="w-8 h-8 text-primary animate-pulse" />
+          <h1 className="text-4xl font-bold font-headline tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-300% animate-gradient">
+            KNOWLEDGE BASE
+          </h1>
+        </div>
+        <div className="flex items-center gap-4 text-muted-foreground font-code text-sm pl-1 border-l-2 border-accent/30">
+          <span>// SYSTEM: ACADEMIC_RECORDS</span>
+          <span className="w-1 h-1 rounded-full bg-accent/50" />
+          <span>STATUS: VERIFIED</span>
+        </div>
       </div>
-      <div className="space-y-6">
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
         {educationData.map((edu, index) => (
-          <Card
-            key={index}
-            className="education-card hover:shadow-lg hover:shadow-primary/10 relative overflow-hidden"
-          >
-            <div
-              className="absolute inset-0 pointer-events-none"
-              aria-hidden="true"
-            >
-              <span
-                className="font-code text-accent/50 absolute top-4 animate-drip-long"
-                style={{
-                  right: "5%",
-                  fontSize: "12px",
-                  animationDelay: "1.2s",
-                  animationDuration: "8s",
-                }}
-              >
-                1
-              </span>
-              <span
-                className="font-code text-accent/30 absolute top-8 animate-drip-long"
-                style={{
-                  right: "15%",
-                  fontSize: "10px",
-                  animationDelay: "3.5s",
-                  animationDuration: "9s",
-                }}
-              >
-                0
-              </span>
-              <span
-                className="font-code text-accent/50 absolute top-2 animate-drip-long"
-                style={{
-                  right: "25%",
-                  fontSize: "12px",
-                  animationDelay: "0.8s",
-                  animationDuration: "7.5s",
-                }}
-              >
-                0
-              </span>
-              <span
-                className="font-code text-accent/40 absolute top-12 animate-drip-long"
-                style={{
-                  right: "35%",
-                  fontSize: "11px",
-                  animationDelay: "4.5s",
-                  animationDuration: "8.2s",
-                }}
-              >
-                1
-              </span>
-            </div>
-            <CardHeader className="flex flex-row items-center gap-4">
-              <div className="p-3 bg-accent/10 rounded-md flex items-center justify-center w-14 h-14">
-                {edu.logo ? (
-                  <Image
-                    src={edu.logo}
-                    alt={`${edu.institution} Logo`}
-                    width={40}
-                    height={40}
-                    className="object-contain h-8 w-8"
-                  />
-                ) : (
-                  <GraduationCap className="h-8 w-8 text-accent" />
-                )}
-              </div>
-              <div className="flex-1">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <CardTitle className="text-2xl font-headline">
-                      {edu.degree}
-                    </CardTitle>
-                    <CardDescription className="text-lg">
-                      {edu.institution}
-                    </CardDescription>
-                  </div>
-                  <p className="text-sm text-muted-foreground">{edu.period}</p>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <ul className="list-disc space-y-2 pl-5">
-                {edu.details.map((detail, i) => (
-                  <li key={i} className="text-foreground/80">
-                    {detail}
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
+          <EducationCard key={index} education={edu} index={index} />
         ))}
       </div>
+
+      {/* Background Decorator */}
+      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vh] border border-primary/5 rounded-full blur-3xl -z-10 pointer-events-none" />
+
     </div>
   );
 }

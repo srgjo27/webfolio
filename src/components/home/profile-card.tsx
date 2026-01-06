@@ -8,8 +8,24 @@ import { AvatarWithAnimation } from "./avatar-animation";
 import { ContactLink } from "./contact-link";
 import { SocialLinks } from "./social-links";
 import { PROFILE_INFO, ROLE_TAGS, ALL_SKILLS } from "@/constants/home-data";
+import { experienceData } from "@/constant/experience-data";
 
 export function ProfileCard() {
+  const totalExperience = (() => {
+    const startDates = experienceData.map(exp => {
+      const startDateStr = exp.period.split("-")[0].trim();
+      return new Date(startDateStr).getTime();
+    });
+
+    const earliestStart = Math.min(...startDates);
+
+    const diffInMs = Date.now() - earliestStart;
+    const diffInYears = diffInMs / (1000 * 60 * 60 * 24 * 365.25);
+
+    const years = Math.floor(diffInYears);
+    return `${years.toString().padStart(2, "0")}YR`;
+  })();
+
   const stats = [
     {
       label: "PROJECTS",
@@ -20,7 +36,7 @@ export function ProfileCard() {
     },
     {
       label: "EXPERIENCE",
-      value: "02YR",
+      value: totalExperience,
       icon: Rocket,
       color: "text-cyan-400",
       glowColor: "glow-cyan",
