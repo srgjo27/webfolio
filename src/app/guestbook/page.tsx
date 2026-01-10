@@ -6,37 +6,23 @@ import {
   getDocs,
   orderBy,
   query,
-  Timestamp,
 } from "firebase/firestore";
 import { firestore } from "@/lib/firebase";
-import { GuestbookForm } from "./client";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { GuestbookForm } from "@/components/guestbook/guestbook-form";
+import { GuestbookCard } from "@/components/guestbook/guestbook-card";
+import { GuestbookEntry } from "@/types/guestbook";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
 } from "@/components/ui/dialog";
-import { PenSquare, Loader2 } from "lucide-react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { PenSquare, Loader2, Database } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 
 export const dynamic = "force-dynamic";
-
-type GuestbookEntry = {
-  id: string;
-  name: string;
-  message: string;
-  createdAt: Timestamp;
-};
 
 async function getGuestbookEntries(): Promise<{
   entries: GuestbookEntry[];
@@ -70,40 +56,14 @@ async function getGuestbookEntries(): Promise<{
     console.error("Error fetching guestbook entries:", error);
     const firebaseError = error as { code?: string };
     if (firebaseError.code === "permission-denied") {
-      return {
-        entries: [],
-        error:
-          "Permission Denied. Could not fetch guestbook entries. This might be because the Firestore API is not enabled in your Google Cloud project or your security rules are incorrect. Please check your Firebase project configuration and enable the API.",
-      };
+      return { entries: [], error: "Permission Denied. Check Firestore rules." };
     } else if (firebaseError.code === "not-found") {
-      return {
-        entries: [],
-        error:
-          "Database Not Found. It seems you haven't created a Firestore database in your Firebase project yet. Please go to the Firebase Console, select Firestore Database, and click 'Create database'.",
-      };
+      return { entries: [], error: "Database Not Found." };
     } else {
-      return {
-        entries: [],
-        error: "An unexpected error occurred while fetching entries.",
-      };
+      return { entries: [], error: "An unexpected error occurred." };
     }
   }
 }
-
-const emojis = [
-  "👋",
-  "😊",
-  "🤖",
-  "🚀",
-  "✨",
-  "👾",
-  "👨‍💻",
-  "👩‍💻",
-  "💡",
-  "🔥",
-  "🎉",
-  "🌟",
-];
 
 export default function GuestbookPage() {
   const [entries, setEntries] = useState<GuestbookEntry[]>([]);
@@ -126,30 +86,28 @@ export default function GuestbookPage() {
 
   useGSAP(
     () => {
-      gsap.from(".guestbook-header", {
-        opacity: 0,
-        x: -30,
-        ease: "power3.out",
-        duration: 0.7,
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.out", duration: 0.8 },
       });
+
+      tl.from(".page-header", { opacity: 0, y: -20 })
+        .from(".guestbook-grid", { opacity: 0 }, "-=0.2");
     },
     { scope: main }
   );
 
-  useGSAP(
-    () => {
-      if (isLoading) return;
-
-      gsap.from(".guestbook-item", {
+  // Stagger animation for cards when loading finishes
+  useGSAP(() => {
+    if (!isLoading && entries.length > 0) {
+      gsap.from(".guestbook-card", {
         opacity: 0,
-        y: 40,
+        y: 20,
         stagger: 0.1,
         duration: 0.5,
-        ease: "power3.out",
+        clearProps: "all"
       });
-    },
-    { scope: main, dependencies: [isLoading] }
-  );
+    }
+  }, { scope: main, dependencies: [isLoading, entries] });
 
   const handleFormSuccess = () => {
     setIsFormOpen(false);
@@ -157,92 +115,66 @@ export default function GuestbookPage() {
   };
 
   return (
-    <div className="flex-1 space-y-8 p-4 md:p-8 pt-6" ref={main}>
-      <div className="guestbook-header flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <h2 className="text-3xl font-bold tracking-tight font-headline">
-            Guestbook
-          </h2>
-          <p className="text-muted-foreground">
-            Leave a message for future visitors.
-          </p>
+    <div className="min-h-screen p-4 md:p-8 pt-6 pb-24" ref={main}>
+      {/* Header */}
+      <div className="page-header flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-3">
+            <Database className="w-8 h-8 text-primary animate-pulse" />
+            <h1 className="text-4xl font-bold font-headline tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-300% animate-gradient">
+              PUBLIC ARCHIVES
+            </h1>
+          </div>
+          <div className="flex items-center gap-4 text-muted-foreground font-code text-sm pl-1 border-l-2 border-accent/30">
+            <span>// DATABASE: GUEST_LOGS</span>
+            <span className="w-1 h-1 rounded-full bg-accent/50" />
+            <span>RECORDS: {entries.length}</span>
+          </div>
         </div>
-        <Button onClick={() => setIsFormOpen(true)}>
-          <PenSquare className="mr-2 h-4 w-4" />
-          Tinggalkan Ucapan
+
+        <Button
+          onClick={() => setIsFormOpen(true)}
+          className="group font-code relative overflow-hidden bg-accent/10 hover:bg-accent/20 text-accent border border-accent/50"
+        >
+          <span className="relative z-10 flex items-center gap-2">
+            <PenSquare className="w-4 h-4" />
+            INITIATE_ENTRY
+          </span>
+          <div className="absolute inset-0 bg-accent/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
         </Button>
       </div>
 
       {isLoading ? (
-        <div className="flex items-center justify-center py-20 gap-2 text-muted-foreground">
-          <Loader2 className="h-8 w-8 animate-spin" />
-          <p className="text-lg">Loading entries...</p>
+        <div className="flex flex-col items-center justify-center py-20 gap-4 text-muted-foreground">
+          <Loader2 className="h-12 w-12 animate-spin text-primary" />
+          <p className="font-code text-sm animate-pulse">DECRYPTING ARCHIVES...</p>
         </div>
       ) : fetchError ? (
-        <Card className="mt-8">
-          <CardHeader>
-            <CardTitle>Error</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-destructive">{fetchError}</p>
-          </CardContent>
-        </Card>
+        <div className="border border-destructive/50 bg-destructive/10 p-6 rounded-lg max-w-2xl mx-auto text-center">
+          <h3 className="font-headline text-destructive text-xl mb-2">CONNECTION ERROR</h3>
+          <p className="font-mono text-sm text-muted-foreground">{fetchError}</p>
+        </div>
       ) : entries.length === 0 ? (
-        <div className="flex items-center justify-center py-20 text-center">
-          <p className="text-muted-foreground">
-            No entries yet. Be the first to sign!
-          </p>
+        <div className="flex flex-col items-center justify-center py-20 text-center border border-dashed border-primary/20 rounded-xl bg-card/10">
+          <p className="font-code text-primary/60 mb-4">// NO RECORDS FOUND</p>
+          <p className="text-muted-foreground max-w-md">The archives are currently empty. Be the first to permanently record your signal in our database.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4 md:gap-6">
+        <div className="guestbook-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
           {entries.map((entry, index) => (
-            <div key={entry.id} className="guestbook-item">
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <div className="relative flex items-center justify-center cursor-pointer group transition-transform hover:-translate-y-1 aspect-[100/115.47]">
-                      <svg
-                        viewBox="0 0 100 115.47"
-                        className="absolute inset-0 w-full h-full transition-colors fill-card group-hover:fill-primary/10 stroke-border"
-                      >
-                        <polygon points="50,0 100,28.87 100,86.6 50,115.47 0,86.6 0,28.87" />
-                      </svg>
-                      <div className="relative z-10 flex flex-col items-center justify-center gap-1 text-center p-2">
-                        <div className="flex h-12 w-12 items-center justify-center">
-                          <span
-                            className="inline-block animate-emoji-float text-3xl"
-                            style={{ animationDelay: `${index * 0.2}s` }}
-                          >
-                            {emojis[index % emojis.length]}
-                          </span>
-                        </div>
-                        <p className="font-headline text-sm truncate w-full px-1">
-                          {entry.name}
-                        </p>
-                      </div>
-                    </div>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{entry.message}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
+            <GuestbookCard key={entry.id} entry={entry} index={index} />
           ))}
         </div>
       )}
 
       {/* Form Dialog */}
       <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
-        <DialogContent>
+        <DialogContent className="bg-black/90 border-primary/20 backdrop-blur-xl">
           <DialogHeader>
-            <DialogTitle className="font-headline flex items-center gap-2">
-              <PenSquare className="h-6 w-6 text-accent" />
-              Tinggalkan Ucapan
+            <DialogTitle className="font-headline flex items-center gap-2 text-primary">
+              <PenSquare className="h-5 w-5" />
+              NEW ENTRY PROTOCOL
             </DialogTitle>
-            <DialogDescription>
-              Leave a message for future visitors.
-            </DialogDescription>
           </DialogHeader>
           <GuestbookForm onSuccess={handleFormSuccess} />
         </DialogContent>

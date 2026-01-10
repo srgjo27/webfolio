@@ -1,66 +1,71 @@
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
-
-const contactMethods = [
-  {
-    icon: faEnvelope,
-    title: "Email",
-    value: "josuasiregar0103@gmail.com",
-    href: "mailto:josuasiregar0103@gmail.com",
-    cta: "Send an Email"
-  },
-  {
-    icon: faLinkedin,
-    title: "LinkedIn",
-    value: "/in/josua-siregar",
-    href: "https://www.linkedin.com/in/josua-siregar/",
-    cta: "Connect on LinkedIn"
-  },
-  {
-    icon: faGithub,
-    title: "GitHub",
-    value: "/srgjo27",
-    href: "https://github.com/srgjo27",
-    cta: "View on GitHub"
-  }
-];
+import React, { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "gsap";
+import { Radio } from "lucide-react";
+import { ContactCard } from "@/components/contact/contact-card";
+import { contactData } from "@/constant/contact-data";
 
 export default function ContactPage() {
+  const container = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.out", duration: 0.8 },
+      });
+
+      tl.from(".page-header", { opacity: 0, y: -20 })
+        .from(
+          ".contact-card",
+          {
+            opacity: 0,
+            y: 30,
+            scale: 0.95,
+            stagger: 0.2,
+            clearProps: "all",
+          },
+          "-=0.4"
+        );
+    },
+    { scope: container }
+  );
+
   return (
-    <div className="flex-1 space-y-8 p-4 md:p-8 pt-6">
-      <div className="flex items-center justify-between space-y-2">
-        <h2 className="text-3xl font-bold tracking-tight font-headline">Get In Touch</h2>
+    <div className="min-h-screen p-4 md:p-8 pt-6 pb-24" ref={container}>
+      {/* Header */}
+      <div className="page-header flex flex-col gap-2 mb-12">
+        <div className="flex items-center gap-3">
+          <Radio className="w-8 h-8 text-primary animate-pulse" />
+          <h1 className="text-4xl font-bold font-headline tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-300% animate-gradient">
+            COMMUNICATION HUB
+          </h1>
+        </div>
+        <div className="flex items-center gap-4 text-muted-foreground font-code text-sm pl-1 border-l-2 border-accent/30">
+          <span>// ESTABLISH_UPLINK</span>
+          <span className="w-1 h-1 rounded-full bg-accent/50" />
+          <span>STATUS: LISTENING</span>
+        </div>
       </div>
-      <p className="text-lg text-muted-foreground">
-        I'm always open to discussing new projects, creative ideas, or opportunities to be part of an ambitious vision.
+
+      <p className="text-lg text-muted-foreground font-mono max-w-2xl mb-12 page-header">
+        I'm always open to discussing new projects, creative ideas, or opportunities to be part of an ambitious vision. Select a channel below to initiate transmission.
       </p>
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {contactMethods.map((method, index) => (
-          <Card key={index} className="flex flex-col justify-between text-center transition-all hover:shadow-lg hover:shadow-accent/10">
-            <CardHeader>
-              <div className="mx-auto bg-accent/10 rounded-full p-4 w-fit">
-                <FontAwesomeIcon icon={method.icon} className="h-10 w-10 text-accent" />
-              </div>
-              <CardTitle className="font-headline mt-4">{method.title}</CardTitle>
-            </CardHeader>
-            <CardContent className="flex-1">
-              <p className="font-code text-muted-foreground">{method.value}</p>
-            </CardContent>
-            <div className="p-6 pt-0">
-               <Button asChild variant="outline">
-                 <Link href={method.href} target="_blank">
-                   {method.cta}
-                 </Link>
-               </Button>
-            </div>
-          </Card>
+
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+        {contactData.map((method, index) => (
+          <ContactCard key={index} method={method} index={index} />
         ))}
       </div>
+
+      {/* Background Decorator - Radar Sweep */}
+      <div className="fixed bottom-0 right-0 w-[50vw] h-[50vh] opacity-20 pointer-events-none -z-10">
+        <div className="absolute inset-0 border border-primary/10 rounded-full scale-[2]" />
+        <div className="absolute inset-0 border border-primary/10 rounded-full scale-[1.5]" />
+        <div className="absolute inset-0 border border-primary/10 rounded-full scale-[1]" />
+      </div>
+
     </div>
   );
 }

@@ -3,7 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScramblingText } from "@/components/ui/scrambling-text";
 import { FolderOpen, Rocket, Monitor } from "lucide-react";
-import { projectsData } from "@/constants/projects-data";
+import { projectsData } from "@/constant/projects-data";
 import { AvatarWithAnimation } from "./avatar-animation";
 import { ContactLink } from "./contact-link";
 import { SocialLinks } from "./social-links";
