@@ -6,7 +6,7 @@ import { gsap } from "gsap";
 import { FolderOpen } from "lucide-react";
 import { ProjectCard } from "@/components/projects/project-card";
 import { ProjectDialog } from "@/components/projects/project-dialog";
-import { projectsData } from "@/constant/projects-data";
+import { projectsData } from "@/constants/projects-data";
 import { Project } from "@/types/project";
 
 export default function ProjectsPage() {

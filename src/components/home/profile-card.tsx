@@ -3,12 +3,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScramblingText } from "@/components/ui/scrambling-text";
 import { FolderOpen, Rocket, Monitor } from "lucide-react";
-import { projectsData } from "@/constant/projects-data";
+import { projectsData } from "@/constants/projects-data";
 import { AvatarWithAnimation } from "./avatar-animation";
 import { ContactLink } from "./contact-link";
 import { SocialLinks } from "./social-links";
 import { PROFILE_INFO, ROLE_TAGS, ALL_SKILLS } from "@/constants/home-data";
-import { experienceData } from "@/constant/experience-data";
+import { experienceData } from "@/constants/experience-data";
 
 export function ProfileCard() {
   const totalExperience = (() => {

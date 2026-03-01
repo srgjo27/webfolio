@@ -6,7 +6,7 @@ import { gsap } from "gsap";
 import { Hash } from "lucide-react";
 import { ExperienceDetailDialog } from "@/components/experience/experience-detail-dialog";
 import { ExperienceCard } from "@/components/experience/experience-card";
-import { experienceData } from "@/constant/experience-data";
+import { experienceData } from "@/constants/experience-data";
 import { ExperienceItem } from "@/types/experience";
 import { useMemo } from "react";
 

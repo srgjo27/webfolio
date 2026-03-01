@@ -28,11 +28,6 @@
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
-  --color-chart-1: hsl(var(--chart-1));
-  --color-chart-2: hsl(var(--chart-2));
-  --color-chart-3: hsl(var(--chart-3));
-  --color-chart-4: hsl(var(--chart-4));
-  --color-chart-5: hsl(var(--chart-5));
   --color-sidebar-background: hsl(var(--sidebar-background));
   --color-sidebar-foreground: hsl(var(--sidebar-foreground));
   --color-sidebar-primary: hsl(var(--sidebar-primary));
@@ -46,43 +41,13 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 
-  --animate-accordion-down: accordion-down 0.2s ease-out;
-  --animate-accordion-up: accordion-up 0.2s ease-out;
   --animate-status-blink: status-blink 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   --animate-pulse-slow: pulse-slow 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  --animate-binary-fall: binary-fall linear infinite;
-  --animate-cyber-glow: cyber-glow 3.5s ease-in-out infinite;
-  --animate-drip: drip 2s ease-out infinite;
   --animate-drip-long: drip-long ease-in infinite;
-  --animate-chevron-move: chevron-move 2s ease-in-out infinite;
   --animate-cyber-pulse: cyber-pulse 5s ease-in-out infinite;
-  --animate-emoji-float: emoji-float 5s ease-in-out infinite;
-  --animate-roadmap-flow: roadmap-flow 4.5s linear infinite;
   --animate-glitch: glitch 3s ease-in-out infinite;
-  --animate-border-trace: border-trace 2s linear infinite;
-  --animate-scan-line: scan-line 4s linear infinite;
   --animate-neon-pulse: neon-pulse 2s ease-in-out infinite;
   --animate-cyber-flicker: cyber-flicker 0.15s infinite;
-
-  @keyframes accordion-down {
-    from {
-      height: 0;
-    }
-
-    to {
-      height: var(--radix-accordion-content-height);
-    }
-  }
-
-  @keyframes accordion-up {
-    from {
-      height: var(--radix-accordion-content-height);
-    }
-
-    to {
-      height: 0;
-    }
-  }
 
   @keyframes status-blink {
     50% {
@@ -93,44 +58,6 @@
   @keyframes pulse-slow {
     50% {
       opacity: 0.15;
-    }
-  }
-
-  @keyframes binary-fall {
-    from {
-      transform: translateY(-100%);
-    }
-
-    to {
-      transform: translateY(100vh);
-    }
-  }
-
-  @keyframes cyber-glow {
-
-    0%,
-    100% {
-      filter: drop-shadow(0 0 3px hsl(var(--primary) / 0.6));
-    }
-
-    50% {
-      filter: drop-shadow(0 0 8px hsl(var(--primary)));
-    }
-  }
-
-  @keyframes drip {
-    0% {
-      transform: translateY(-20px);
-      opacity: 0;
-    }
-
-    30% {
-      opacity: 1;
-    }
-
-    100% {
-      transform: translateY(20px);
-      opacity: 0;
     }
   }
 
@@ -150,22 +77,6 @@
     }
   }
 
-  @keyframes chevron-move {
-    0% {
-      transform: translateX(-0.3rem);
-      opacity: 0;
-    }
-
-    50% {
-      opacity: 1;
-    }
-
-    100% {
-      transform: translateX(0.3rem);
-      opacity: 0;
-    }
-  }
-
   @keyframes cyber-pulse {
 
     0%,
@@ -180,92 +91,38 @@
     }
   }
 
-  @keyframes emoji-float {
+  @keyframes glitch {
 
     0%,
+    90%,
     100% {
-      transform: translateY(0px) rotate(0deg);
-    }
-
-    25% {
-      transform: translateY(-4px) rotate(-3deg);
-    }
-
-    50% {
-      transform: translateY(0px) rotate(0deg);
-    }
-
-    75% {
-      transform: translateY(4px) rotate(3deg);
-    }
-
-    100% {
-      transform: translateY(0px) rotate(0deg);
-    }
-  }
-
-  @keyframes roadmap-flow {
-    from {
-      top: 0;
-      opacity: 1;
-    }
-
-    to {
-      top: 100%;
-      opacity: 0;
-    }
-  }
-
-  @keyframes glitch {
-    0%, 90%, 100% {
       transform: translate(0);
       filter: hue-rotate(0deg);
     }
+
     92% {
       transform: translate(-2px, 1px);
       filter: hue-rotate(90deg);
     }
+
     94% {
       transform: translate(2px, -1px);
       filter: hue-rotate(-90deg);
     }
+
     96% {
       transform: translate(-1px, 2px);
     }
   }
 
-  @keyframes border-trace {
-    0% {
-      clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
-    }
-    25% {
-      clip-path: polygon(0 0, 100% 0, 100% 0, 0 0, 0 100%, 0 100%);
-    }
-    50% {
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%, 0 100%);
-    }
-    75% {
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 100%, 0 100%);
-    }
-    100% {
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0, 0 0);
-    }
-  }
-
-  @keyframes scan-line {
-    0% {
-      top: 0;
-    }
-    100% {
-      top: 100%;
-    }
-  }
-
   @keyframes neon-pulse {
-    0%, 100% {
+
+    0%,
+    100% {
       text-shadow: 0 0 4px #00ff41, 0 0 11px #00ff41, 0 0 19px #00ff41;
       box-shadow: 0 0 5px #00ff41, 0 0 10px #00ff41;
     }
+
     50% {
       text-shadow: 0 0 2px #00ff41, 0 0 5px #00ff41, 0 0 8px #00ff41;
       box-shadow: 0 0 2px #00ff41, 0 0 5px #00ff41;
@@ -273,8 +130,15 @@
   }
 
   @keyframes cyber-flicker {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.8; }
+
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.8;
+    }
   }
 }
 
@@ -298,11 +162,6 @@
   --border: 0 0% 89.8%;
   --input: 0 0% 89.8%;
   --ring: 0 0% 3.9%;
-  --chart-1: 12 76% 61%;
-  --chart-2: 173 58% 39%;
-  --chart-3: 197 37% 24%;
-  --chart-4: 43 74% 66%;
-  --chart-5: 27 87% 67%;
   --radius: 0.5rem;
   --sidebar-background: 0 0% 98%;
   --sidebar-foreground: 240 5.3% 26.1%;
@@ -318,42 +177,36 @@
   /* Cyberpunk Deep Void Background */
   --background: 220 20% 2%;
   --foreground: 120 100% 95%;
-  
+
   /* Cards with darker cyber feel */
   --card: 220 18% 5%;
   --card-foreground: 120 100% 95%;
-  
+
   --popover: 220 18% 5%;
   --popover-foreground: 120 100% 95%;
-  
+
   /* Electric Neon Green Primary */
   --primary: 120 100% 50%;
   --primary-foreground: 220 20% 5%;
-  
+
   --secondary: 220 15% 10%;
   --secondary-foreground: 120 100% 95%;
-  
+
   --muted: 220 15% 12%;
   --muted-foreground: 120 20% 60%;
-  
+
   /* Cyber Cyan Accent */
   --accent: 180 100% 50%;
   --accent-foreground: 220 20% 5%;
-  
+
   --destructive: 0 85% 60%;
   --destructive-foreground: 0 0% 98%;
-  
+
   /* Glowing borders */
   --border: 120 60% 25%;
   --input: 120 60% 20%;
   --ring: 120 100% 50%;
-  
-  --chart-1: 120 100% 50%;
-  --chart-2: 180 100% 50%;
-  --chart-3: 280 100% 60%;
-  --chart-4: 60 100% 50%;
-  --chart-5: 320 100% 55%;
-  
+
   --sidebar-background: 220 20% 3%;
   --sidebar-foreground: 120 100% 95%;
   --sidebar-primary: 120 100% 50%;
@@ -375,74 +228,31 @@
 }
 
 @layer utilities {
+
   /* Cyberpunk Clip-path Utilities */
   .clip-chamfer {
     clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
   }
-  
+
   .clip-chamfer-sm {
     clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
-  }
-  
-  .clip-corner-cut {
-    clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
   }
 
   /* Neon Glow Effects */
   .glow-green {
-    box-shadow: 0 0 5px rgba(0, 255, 65, 0.5), 
-                0 0 10px rgba(0, 255, 65, 0.3),
-                inset 0 0 10px rgba(0, 255, 65, 0.1);
+    box-shadow: 0 0 5px rgba(0, 255, 65, 0.5),
+      0 0 10px rgba(0, 255, 65, 0.3),
+      inset 0 0 10px rgba(0, 255, 65, 0.1);
   }
-  
+
   .glow-cyan {
-    box-shadow: 0 0 5px rgba(0, 243, 255, 0.5), 
-                0 0 10px rgba(0, 243, 255, 0.3),
-                inset 0 0 10px rgba(0, 243, 255, 0.1);
+    box-shadow: 0 0 5px rgba(0, 243, 255, 0.5),
+      0 0 10px rgba(0, 243, 255, 0.3),
+      inset 0 0 10px rgba(0, 243, 255, 0.1);
   }
-  
+
   .text-glow-green {
     text-shadow: 0 0 4px #00ff41, 0 0 11px #00ff41, 0 0 19px #00ff41;
-  }
-  
-  .text-glow-cyan {
-    text-shadow: 0 0 4px #00f3ff, 0 0 11px #00f3ff, 0 0 19px #00f3ff;
-  }
-
-  /* Gradient Borders */
-  .border-gradient-cyber {
-    border: 2px solid transparent;
-    background-image: linear-gradient(#050505, #050505), 
-                      linear-gradient(135deg, #00ff41 0%, #00f3ff 50%, #00ff41 100%);
-    background-origin: border-box;
-    background-clip: padding-box, border-box;
-  }
-
-  /* Tech Grid Background */
-  .tech-grid {
-    background-image: 
-      linear-gradient(rgba(0, 255, 65, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 255, 65, 0.05) 1px, transparent 1px);
-    background-size: 20px 20px;
-  }
-
-  /* Scan Line Effect */
-  .scan-line {
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .scan-line::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #00ff41, transparent);
-    animation: scan-line 4s linear infinite;
-    opacity: 0.6;
-    z-index: 10;
   }
 
   /* Monospace Font */

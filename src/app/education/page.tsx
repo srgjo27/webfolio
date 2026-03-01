@@ -5,7 +5,7 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { GraduationCap } from "lucide-react";
 import { EducationCard } from "@/components/education/education-card";
-import { educationData } from "@/constant/education-data";
+import { educationData } from "@/constants/education-data";
 
 export default function EducationPage() {
   const container = useRef<HTMLDivElement>(null);

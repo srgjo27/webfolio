@@ -7,57 +7,16 @@ import { EntryGate } from "@/components/layout/entry-gate";
 import { Sidebar } from "@/components/layout/sidebar";
 import { BottomNav } from "@/components/layout/bottom-nav";
 import {
-  Home,
-  Briefcase,
-  GraduationCap,
-  Folders,
-  Mail,
-  BookUser,
-  type LucideIcon,
-} from "lucide-react";
+  SITE_METADATA,
+  LEFT_MENU_ITEMS,
+  RIGHT_MENU_ITEMS,
+  ALL_MENU_ITEMS,
+} from "@/constants/layout-data";
 import "./globals.css";
-
-// Types
-interface MenuItem {
-  href: string;
-  label: string;
-  icon: LucideIcon;
-}
 
 interface RootLayoutProps {
   children: ReactNode;
 }
-
-// Constants
-const SITE_METADATA = {
-  title: "Webfolio",
-  description: "A personal portfolio with an AI career advisor.",
-  fonts: {
-    spaceGrotesk:
-      "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap",
-    sourceCodePro:
-      "https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&display=swap",
-    jetBrainsMono:
-      "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap",
-  },
-} as const;
-
-const LEFT_MENU_ITEMS: MenuItem[] = [
-  { href: "/", label: "Home", icon: Home },
-  { href: "/experience", label: "Experience", icon: Briefcase },
-  { href: "/education", label: "Education", icon: GraduationCap },
-] as const;
-
-const RIGHT_MENU_ITEMS: MenuItem[] = [
-  { href: "/projects", label: "Projects", icon: Folders },
-  { href: "/contact", label: "Contact", icon: Mail },
-  { href: "/guestbook", label: "Guestbook", icon: BookUser },
-] as const;
-
-const ALL_MENU_ITEMS: MenuItem[] = [
-  ...LEFT_MENU_ITEMS,
-  ...RIGHT_MENU_ITEMS,
-] as const;
 
 export default function RootLayout({ children }: RootLayoutProps) {
   const [isUnlocked, setIsUnlocked] = useState(false);

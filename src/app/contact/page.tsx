@@ -5,7 +5,7 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { Radio } from "lucide-react";
 import { ContactCard } from "@/components/contact/contact-card";
-import { contactData } from "@/constant/contact-data";
+import { contactData } from "@/constants/contact-data";
 
 export default function ContactPage() {
   const container = useRef<HTMLDivElement>(null);
