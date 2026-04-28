@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { BinaryBackground } from "@/components/layout/binary-background";
 import { EntryGate } from "@/components/layout/entry-gate";
 import { Sidebar } from "@/components/layout/sidebar";
 import { BottomNav } from "@/components/layout/bottom-nav";
+import { useRootLayout } from "@/hooks/use-root-layout";
 import {
   SITE_METADATA,
   LEFT_MENU_ITEMS,
@@ -19,12 +20,14 @@ interface RootLayoutProps {
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
-  const [isUnlocked, setIsUnlocked] = useState(false);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  const {
+    isUnlocked,
+    isClient,
+    status,
+    scanProgress,
+    containerRef,
+    handleInitialize,
+  } = useRootLayout();
 
   return (
     <html lang="en" className="dark">
@@ -49,7 +52,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   );
 
   function renderMainContent() {
-    if (!isClient) return null;
+    if (!isClient) return;
 
     return isUnlocked ? (
       <div className="flex min-h-screen">
@@ -64,7 +67,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
     ) : (
       <>
         <BinaryBackground />
-        <EntryGate onUnlock={() => setIsUnlocked(true)} />
+        <EntryGate
+          onInitialize={handleInitialize}
+          status={status}
+          scanProgress={scanProgress}
+          containerRef={containerRef}
+        />
       </>
     );
   }

@@ -4,7 +4,6 @@ import {
   faHtml5,
   faCss3Alt,
   faJs,
-  faJava,
   faPhp,
   faBootstrap,
   faNodeJs,
@@ -17,6 +16,7 @@ import {
   faReact,
   faGithub,
   faLinkedin,
+  faDocker,
 } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
@@ -28,24 +28,17 @@ export interface SkillItem {
 export const ANIMATION_CONFIG = {
   ease: "power3.out",
   duration: 0.7,
-} as const;
+};
 
 export const PROFILE_INFO = {
   name: "Josua Siregar",
   title: "Full Stack Developer",
-  description: `Results oriented developer with a strong background in software
-    development and system architecture. Proficient in JavaScript,
-    TypeScript, PHP, Go, Dart, and Java, with extensive experience
-    in RESTful APIs, microservices, and database optimization. I am
-    skilled in developing scalable, high-performance front-end and
-    back-end solutions using Laravel, Next JS, and
-    Flutter. I am committed to delivering robust, efficient, and
-    secure systems for organizational and project success.`,
+  description: `Software Engineer specializing in Flutter mobile development and full‑stack web applications. Experienced in delivering production‑grade applications in fintech and enterprise environments, including digital banking and airline operational systems. Skilled in building scalable mobile applications, integrating complex REST APIs, and optimizing performance for high‑traffic platforms. Strong collaborator with experience working in Agile Scrum teams alongside backend engineers, QA, and product designers.`,
   email: "josuasiregar0103@gmail.com",
   github: "https://github.com/srgjo27",
   linkedin: "https://www.linkedin.com/in/josua-siregar/",
-  avatar: "https://placehold.co/100x100.png",
-} as const;
+  avatar: "",
+};
 
 export const PROGRAMMING_LANGUAGES: SkillItem[] = [
   {
@@ -57,7 +50,11 @@ export const PROGRAMMING_LANGUAGES: SkillItem[] = [
   {
     name: "CSS",
     icon: (props) => (
-      <FontAwesomeIcon icon={faCss3Alt} {...props} style={{ color: "#1572B6" }} />
+      <FontAwesomeIcon
+        icon={faCss3Alt}
+        {...props}
+        style={{ color: "#1572B6" }}
+      />
     ),
   },
   {
@@ -71,19 +68,23 @@ export const PROGRAMMING_LANGUAGES: SkillItem[] = [
     icon: (props) => <Code {...props} style={{ color: "#3178C6" }} />,
   },
   {
-    name: "Java",
-    icon: (props) => <FontAwesomeIcon icon={faJava} {...props} />,
-  },
-  {
     name: "Go",
     icon: (props) => (
-      <FontAwesomeIcon icon={faGolang} {...props} style={{ color: "#00ADD8" }} />
+      <FontAwesomeIcon
+        icon={faGolang}
+        {...props}
+        style={{ color: "#00ADD8" }}
+      />
     ),
   },
   {
     name: "Dart",
     icon: (props) => (
-      <FontAwesomeIcon icon={faDartLang} {...props} style={{ color: "#0175C2" }} />
+      <FontAwesomeIcon
+        icon={faDartLang}
+        {...props}
+        style={{ color: "#0175C2" }}
+      />
     ),
   },
   {
@@ -98,7 +99,11 @@ export const TECHNOLOGIES: SkillItem[] = [
   {
     name: "Bootstrap",
     icon: (props) => (
-      <FontAwesomeIcon icon={faBootstrap} {...props} style={{ color: "#7952B3" }} />
+      <FontAwesomeIcon
+        icon={faBootstrap}
+        {...props}
+        style={{ color: "#7952B3" }}
+      />
     ),
   },
   {
@@ -108,7 +113,11 @@ export const TECHNOLOGIES: SkillItem[] = [
   {
     name: "Node.js",
     icon: (props) => (
-      <FontAwesomeIcon icon={faNodeJs} {...props} style={{ color: "#339933" }} />
+      <FontAwesomeIcon
+        icon={faNodeJs}
+        {...props}
+        style={{ color: "#339933" }}
+      />
     ),
   },
   {
@@ -126,19 +135,31 @@ export const TECHNOLOGIES: SkillItem[] = [
   {
     name: "Laravel",
     icon: (props) => (
-      <FontAwesomeIcon icon={faLaravel} {...props} style={{ color: "#FF2D20" }} />
+      <FontAwesomeIcon
+        icon={faLaravel}
+        {...props}
+        style={{ color: "#FF2D20" }}
+      />
     ),
   },
   {
     name: "Flutter",
     icon: (props) => (
-      <FontAwesomeIcon icon={faFlutter} {...props} style={{ color: "#027DFD" }} />
+      <FontAwesomeIcon
+        icon={faFlutter}
+        {...props}
+        style={{ color: "#027DFD" }}
+      />
     ),
   },
   {
     name: "Git",
     icon: (props) => (
-      <FontAwesomeIcon icon={faGitAlt} {...props} style={{ color: "#F05032" }} />
+      <FontAwesomeIcon
+        icon={faGitAlt}
+        {...props}
+        style={{ color: "#F05032" }}
+      />
     ),
   },
   {
@@ -154,6 +175,10 @@ export const TECHNOLOGIES: SkillItem[] = [
     icon: (props) => <Database {...props} style={{ color: "#4479A1" }} />,
   },
   {
+    name: "PostgreSQL",
+    icon: (props) => <Database {...props} style={{ color: "#4479A1" }} />,
+  },
+  {
     name: "Firebase",
     icon: (props) => <Flame {...props} style={{ color: "#FFCA28" }} />,
   },
@@ -161,6 +186,16 @@ export const TECHNOLOGIES: SkillItem[] = [
     name: "Jira",
     icon: (props) => (
       <FontAwesomeIcon icon={faJira} {...props} style={{ color: "#027DFD" }} />
+    ),
+  },
+  {
+    name: "Docker",
+    icon: (props) => (
+      <FontAwesomeIcon
+        icon={faDocker}
+        {...props}
+        style={{ color: "#027DFD" }}
+      />
     ),
   },
 ];
@@ -172,21 +207,24 @@ export const SOCIAL_LINKS = [
     href: `mailto:${PROFILE_INFO.email}`,
     icon: faEnvelope,
     label: "Email",
-    color: "border-red-500/50 hover:border-red-500 text-red-400 hover:glow-green",
+    color:
+      "border-red-500/50 hover:border-red-500 text-red-400 hover:glow-green",
   },
   {
     href: PROFILE_INFO.github,
     icon: faGithub,
     label: "GitHub",
     external: true,
-    color: "border-gray-500/50 hover:border-primary text-gray-400 hover:text-primary",
+    color:
+      "border-gray-500/50 hover:border-primary text-gray-400 hover:text-primary",
   },
   {
     href: PROFILE_INFO.linkedin,
     icon: faLinkedin,
     label: "LinkedIn",
     external: true,
-    color: "border-blue-500/50 hover:border-cyan-400 text-blue-400 hover:text-cyan-400",
+    color:
+      "border-blue-500/50 hover:border-cyan-400 text-blue-400 hover:text-cyan-400",
   },
 ];
 

@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -18,7 +17,7 @@ export const ScramblingText = ({
 
   const scramble = React.useCallback(() => {
     let iteration = 0;
-    
+
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
@@ -41,9 +40,8 @@ export const ScramblingText = ({
         if (intervalRef.current) {
           clearInterval(intervalRef.current);
         }
-        setCurrentText(text); // Ensure final text is correct
-        // Set a timeout to restart the animation
-        timeoutRef.current = setTimeout(scramble, 3000); // 3-second pause
+        setCurrentText(text);
+        timeoutRef.current = setTimeout(scramble, 3000);
         return;
       }
 
@@ -52,10 +50,8 @@ export const ScramblingText = ({
   }, [text, chars]);
 
   React.useEffect(() => {
-    // Initial start
     scramble();
 
-    // Cleanup function to clear all timers
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);

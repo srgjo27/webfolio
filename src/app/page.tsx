@@ -2,46 +2,41 @@
 
 import { ProfileCard } from "@/components/home/profile-card";
 import { TechStackCard } from "@/components/home/tech-stack-card";
-import { useHomeAnimation } from "@/hooks/use-home-animation";
+import { useHome } from "@/hooks/use-home";
 
 export default function Home() {
-  const main = useHomeAnimation();
+  const { mainRef, drips, footerBarcode } = useHome();
 
   return (
-    <div className="relative flex-1 min-h-screen" ref={main}>
-      {/* Matrix-style Background Effect */}
+    <div className="relative flex-1 min-h-screen" ref={mainRef}>
       <div className="fixed inset-0 pointer-events-none overflow-hidden opacity-5 z-0">
         <div className="tech-grid absolute inset-0" />
-        {[...Array(15)].map((_, i) => (
+        {drips.map((drip, i) => (
           <div
             key={i}
             className="absolute text-primary font-mono-cyber text-xs animate-drip-long"
             style={{
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${8 + Math.random() * 4}s`,
+              left: drip.left,
+              animationDelay: drip.delay,
+              animationDuration: drip.duration,
             }}
           >
-            {Math.random().toString(2).substring(2, 10)}
+            {drip.text}
           </div>
         ))}
       </div>
 
-      {/* Main Content */}
-      <div className="relative z-10 space-y-8 p-4 md:p-8 pt-6">
-        {/* Header */}
+      <div className="relative z-10 space-y-8 p-4 md:p-8">
         <header className="flex items-center justify-between">
           <div className="relative">
             <h1
-              className="text-4xl font-black tracking-tight uppercase text-primary 
+              className="text-3xl font-black tracking-tight uppercase text-primary 
                            text-glow-green font-mono-cyber"
             >
               &lt;Home /&gt;
             </h1>
-            <div className="absolute -bottom-1 left-0 h-1 w-32 bg-gradient-to-r from-primary via-cyan-400 to-transparent" />
           </div>
 
-          {/* System Status Display */}
           <div
             className="hidden md:flex items-center gap-3 px-4 py-2 border-2 border-primary/30 
                           clip-chamfer-sm bg-black/40 backdrop-blur-sm"
@@ -57,20 +52,18 @@ export default function Home() {
                 />
               ))}
             </div>
+
             <span className="text-xs font-mono-cyber text-muted-foreground uppercase tracking-wider">
               System: Active
             </span>
           </div>
         </header>
 
-        {/* Grid Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative">
-          {/* Connecting Line (desktop only) */}
           <div
             className="hidden lg:block absolute top-1/2 left-[66%] w-px h-32 
-                          bg-gradient-to-b from-transparent via-primary/30 to-transparent pointer-events-none"
+                          bg-linear-to-b from-transparent via-primary/30 to-transparent pointer-events-none"
           />
-
           <div className="lg:col-span-2">
             <ProfileCard />
           </div>
@@ -79,25 +72,24 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Footer */}
         <div className="flex items-center justify-between pt-8 border-t border-primary/20">
           <div className="flex items-center gap-2">
             <div className="flex gap-1">
-              {[...Array(8)].map((_, i) => (
+              {footerBarcode.map((height, i) => (
                 <div
                   key={i}
                   className="w-1 bg-primary/30"
-                  style={{ height: `${Math.random() * 20 + 5}px` }}
+                  style={{ height }}
                 />
               ))}
             </div>
             <span className="text-[10px] font-mono-cyber text-muted-foreground uppercase">
-              Portfolio.System v2.0
+              Portfolio.System v3.0
             </span>
           </div>
 
           <div className="text-[10px] font-mono-cyber text-cyan-400">
-            &copy; {new Date().getFullYear()} // All_Rights_Reserved
+            &copy; 2024 // All_Rights_Reserved
           </div>
         </div>
       </div>

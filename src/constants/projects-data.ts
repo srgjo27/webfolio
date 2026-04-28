@@ -2,6 +2,26 @@ import { Project } from "@/types/project";
 
 export const projectsData: Project[] = [
   {
+    title: "DesaPOS",
+    period: "-",
+    shortDescription:
+      "DesaPOS adalah sistem kasir dan pencatatan inventaris yang ringan, responsif, dan mudah digunakan oleh pengurus BUMDes, dengan dukungan mode offline-first berbasis PWA.",
+    details: [
+      "Interactive POS Register: Halaman kasir super cepat dengan keranjang belanja yang dikelola via State Management (Pinia) agar tidak hilang saat pindah menu.",
+      "Offline-First (PWA): Menggunakan Service Workers agar transaksi tetap bisa dicatat saat internet atau listrik padam, lalu otomatis sync ke server saat koneksi kembali.",
+      "Role-Based Access: Pemisahan akses antara Kasir (melayani transaksi) dan Kepala BUMDes (melihat dashboard laba/rugi).",
+      "One-Click Report: Generate laporan transaksi harian/bulanan dalam format PDF yang rapi dengan satu klik.",
+      "Login & Shift Management: Kasir login menggunakan PIN/Password dan mencatat uang modal di laci kasir saat memulai shift harian.",
+      "Smart Checkout: Sistem otomatis menghitung total harga, diskon, dan kembalian, serta memotong stok inventaris secara real-time.",
+      "Struk & Nota: Mendukung pencetakan struk thermal via Bluetooth/USB atau pengiriman nota transaksi melalui WhatsApp.",
+      "Dashboard Analitik: Kepala BUMDes dapat memantau barang terlaris dan total omzet bulanan melalui dashboard analitik.",
+    ],
+    image: "",
+    imageHint: "point of sale kasir",
+    tags: ["Vue 3", "Pinia", "Vite", "TailwindCSS", "Headless UI", "Axios", "Supabase", "PostgreSQL", "PWA"],
+    github: "https://github.com/srgjo27/desa-pos",
+  },
+  {
     title: "OmniWallet",
     period: "-",
     shortDescription:
@@ -16,7 +36,7 @@ export const projectsData: Project[] = [
       "Admin Dashboard: Manajemen pengguna dan monitoring transaksi melalui antarmuka Next.js 15 yang responsif.",
       "KYC & Profil: Sistem verifikasi identitas pengguna (KYC) dan manajemen profil dengan PIN keamanan transaksi.",
     ],
-    image: "/images/projects/omni-wallet.png",
+    image: "",
     imageHint: "digital wallet fintech",
     tags: [
       "Go",
@@ -35,39 +55,6 @@ export const projectsData: Project[] = [
       "JWT",
     ],
     github: "https://github.com/srgjo27/omni-wallet",
-  },
-  {
-    title: "DesaPOS",
-    period: "-",
-    shortDescription:
-      "DesaPOS adalah sistem kasir dan pencatatan inventaris yang ringan, responsif, dan mudah digunakan oleh pengurus BUMDes, dengan dukungan mode offline-first berbasis PWA.",
-    details: [
-      "Interactive POS Register: Halaman kasir super cepat dengan keranjang belanja yang dikelola via State Management (Pinia) agar tidak hilang saat pindah menu.",
-      "Offline-First (PWA): Menggunakan Service Workers agar transaksi tetap bisa dicatat saat internet atau listrik padam, lalu otomatis sync ke server saat koneksi kembali.",
-      "Role-Based Access: Pemisahan akses antara Kasir (melayani transaksi) dan Kepala BUMDes (melihat dashboard laba/rugi).",
-      "One-Click Report: Generate laporan transaksi harian/bulanan dalam format PDF yang rapi dengan satu klik.",
-      "Login & Shift Management: Kasir login menggunakan PIN/Password dan mencatat uang modal di laci kasir saat memulai shift harian.",
-      "Smart Checkout: Sistem otomatis menghitung total harga, diskon, dan kembalian, serta memotong stok inventaris secara real-time.",
-      "Struk & Nota: Mendukung pencetakan struk thermal via Bluetooth/USB atau pengiriman nota transaksi melalui WhatsApp.",
-      "Dashboard Analitik: Kepala BUMDes dapat memantau barang terlaris dan total omzet bulanan melalui dashboard analitik.",
-    ],
-    image: "/images/projects/desa-pos.png",
-    imageHint: "point of sale kasir",
-    tags: ["Vue 3", "Pinia", "Vite", "TailwindCSS", "Headless UI", "Axios", "Supabase", "PostgreSQL", "PWA"],
-    github: "https://github.com/srgjo27/desa-pos",
-  },
-  {
-    title: "Agora",
-    period: "-",
-    shortDescription:
-      "",
-    details: [
-
-    ],
-    image: "/images/projects/agora.png",
-    imageHint: "website",
-    tags: ["React", "Next.js", "UI/UX", "REST API", "Tailwind CSS", "Go"],
-    github: "",
   },
   {
     title: "Agora",
