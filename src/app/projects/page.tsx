@@ -19,29 +19,27 @@ export default function ProjectsPage() {
         defaults: { ease: "power3.out", duration: 0.8 },
       });
 
-      tl.from(".page-header", { opacity: 0, y: -20 })
-        .from(
-          ".project-card",
-          {
-            opacity: 0,
-            y: 30,
-            scale: 0.95,
-            stagger: 0.15,
-            clearProps: "all",
-          },
-          "-=0.4"
-        );
+      tl.from(".page-header", { opacity: 0, y: -20 }).from(
+        ".project-card",
+        {
+          opacity: 0,
+          y: 30,
+          scale: 0.95,
+          stagger: 0.15,
+          clearProps: "all",
+        },
+        "-=0.4",
+      );
     },
-    { scope: container }
+    { scope: container },
   );
 
   return (
     <div className="min-h-screen p-4 md:p-8 pt-6 pb-24" ref={container}>
-      {/* Header */}
       <div className="page-header flex flex-col gap-2 mb-12">
         <div className="flex items-center gap-3">
           <FolderOpen className="w-8 h-8 text-primary animate-pulse" />
-          <h1 className="text-4xl font-bold font-headline tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-300% animate-gradient">
+          <h1 className="text-4xl font-bold font-headline tracking-tight bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-300% animate-gradient">
             PROJECT OPERATIONS
           </h1>
         </div>
@@ -52,7 +50,6 @@ export default function ProjectsPage() {
         </div>
       </div>
 
-      {/* Grid Layout */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
         {projectsData.map((project, index) => (
           <ProjectCard
@@ -63,12 +60,10 @@ export default function ProjectsPage() {
         ))}
       </div>
 
-      {/* Dialog */}
       <ProjectDialog
         project={selectedProject}
         onClose={() => setSelectedProject(null)}
       />
-
     </div>
   );
 }
