@@ -23,9 +23,12 @@ export function ProjectDialog({ project, onClose }: ProjectDialogProps) {
       <DialogContent className="max-w-4xl bg-black/90 border-accent/20 backdrop-blur-xl p-0 overflow-hidden gap-0 shadow-2xl shadow-accent/10 sm:max-h-[90vh] overflow-y-auto">
         {project && (
           <div className="flex flex-col md:flex-row h-full">
-            <div className="w-full md:w-2/5 bg-muted/10 relative min-h-[300px] md:min-h-full border-r border-accent/10">
+            <div className="w-full md:w-3/6 bg-muted/10 relative min-h-[100px] md:min-h-full border-r border-accent/10">
               <Image
-                src={project.image}
+                src={
+                  project.image ||
+                  "https://placehold.co/600x400/0a0a0a/00f2ff/png?text=NO+VISUAL+DATA"
+                }
                 alt={project.title}
                 fill
                 className="object-cover opacity-60"
@@ -47,7 +50,7 @@ export function ProjectDialog({ project, onClose }: ProjectDialogProps) {
               </div>
             </div>
 
-            <div className="w-full md:w-3/5 p-6 md:p-8 flex flex-col">
+            <div className="w-full md:w-3/6 p-6 md:p-8 flex flex-col">
               <DialogHeader className="mb-6">
                 <div className="flex items-center gap-2 mb-2 text-accent font-code text-xs uppercase tracking-widest">
                   <Terminal className="w-4 h-4" />

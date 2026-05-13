@@ -28,7 +28,7 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
 
         <div className="relative aspect-video w-full overflow-hidden border-b border-primary/10">
           <Image
-            src={project.image}
+            src={project.image || "https://placehold.co/600x400/0a0a0a/00f2ff/png?text=NO+VISUAL+DATA"}
             alt={project.title}
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-105"

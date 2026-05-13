@@ -49,6 +49,9 @@ export const experienceData: ExperienceItem[] = [
             "Scrum",
             "Jira",
             "Confluence",
+            "Next JS",
+            "TypeScript",
+            "Dart",
         ],
     },
 ];

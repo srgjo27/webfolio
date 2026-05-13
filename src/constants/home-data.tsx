@@ -1,24 +1,29 @@
-import { Code, Database, Flame } from "lucide-react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faHtml5,
-  faCss3Alt,
-  faJs,
-  faPhp,
-  faBootstrap,
-  faNodeJs,
-  faLaravel,
-  faGitAlt,
-  faFlutter,
-  faDartLang,
-  faGolang,
-  faJira,
-  faReact,
-  faGithub,
-  faLinkedin,
-  faDocker,
-} from "@fortawesome/free-brands-svg-icons";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+  SiHtml5,
+  SiCss,
+  SiJavascript,
+  SiTypescript,
+  SiGo,
+  SiDart,
+  SiPhp,
+  SiBootstrap,
+  SiTailwindcss,
+  SiNodedotjs,
+  SiReact,
+  SiNextdotjs,
+  SiLaravel,
+  SiFlutter,
+  SiGit,
+  SiGithub,
+  SiSupabase,
+  SiMysql,
+  SiPostgresql,
+  SiFirebase,
+  SiJira,
+  SiDocker,
+  SiGmail,
+  SiLinkerd,
+} from "react-icons/si";
 
 export interface SkillItem {
   name: string;
@@ -43,160 +48,94 @@ export const PROFILE_INFO = {
 export const PROGRAMMING_LANGUAGES: SkillItem[] = [
   {
     name: "HTML",
-    icon: (props) => (
-      <FontAwesomeIcon icon={faHtml5} {...props} style={{ color: "#E34F26" }} />
-    ),
+    icon: (props) => <SiHtml5 {...props} style={{ color: "#E34F26" }} />,
   },
   {
     name: "CSS",
-    icon: (props) => (
-      <FontAwesomeIcon
-        icon={faCss3Alt}
-        {...props}
-        style={{ color: "#1572B6" }}
-      />
-    ),
+    icon: (props) => <SiCss {...props} style={{ color: "#1572B6" }} />,
   },
   {
     name: "JavaScript",
-    icon: (props) => (
-      <FontAwesomeIcon icon={faJs} {...props} style={{ color: "#F7DF1E" }} />
-    ),
+    icon: (props) => <SiJavascript {...props} style={{ color: "#F7DF1E" }} />,
   },
   {
     name: "TypeScript",
-    icon: (props) => <Code {...props} style={{ color: "#3178C6" }} />,
+    icon: (props) => <SiTypescript {...props} style={{ color: "#3178C6" }} />,
   },
   {
     name: "Go",
-    icon: (props) => (
-      <FontAwesomeIcon
-        icon={faGolang}
-        {...props}
-        style={{ color: "#00ADD8" }}
-      />
-    ),
+    icon: (props) => <SiGo {...props} style={{ color: "#00ADD8" }} />,
   },
   {
     name: "Dart",
-    icon: (props) => (
-      <FontAwesomeIcon
-        icon={faDartLang}
-        {...props}
-        style={{ color: "#0175C2" }}
-      />
-    ),
+    icon: (props) => <SiDart {...props} style={{ color: "#0175C2" }} />,
   },
   {
     name: "PHP",
-    icon: (props) => (
-      <FontAwesomeIcon icon={faPhp} {...props} style={{ color: "#777BB4" }} />
-    ),
+    icon: (props) => <SiPhp {...props} style={{ color: "#777BB4" }} />,
   },
 ];
 
 export const TECHNOLOGIES: SkillItem[] = [
   {
     name: "Bootstrap",
-    icon: (props) => (
-      <FontAwesomeIcon
-        icon={faBootstrap}
-        {...props}
-        style={{ color: "#7952B3" }}
-      />
-    ),
+    icon: (props) => <SiBootstrap {...props} style={{ color: "#7952B3" }} />,
   },
   {
     name: "Tailwind CSS",
-    icon: (props) => <Code {...props} style={{ color: "#06B6D4" }} />,
+    icon: (props) => <SiTailwindcss {...props} style={{ color: "#06B6D4" }} />,
   },
   {
     name: "Node.js",
-    icon: (props) => (
-      <FontAwesomeIcon
-        icon={faNodeJs}
-        {...props}
-        style={{ color: "#339933" }}
-      />
-    ),
+    icon: (props) => <SiNodedotjs {...props} style={{ color: "#339933" }} />,
   },
   {
     name: "React",
-    icon: (props) => (
-      <FontAwesomeIcon icon={faReact} {...props} style={{ color: "#61DAFB" }} />
-    ),
+    icon: (props) => <SiReact {...props} style={{ color: "#61DAFB" }} />,
   },
   {
     name: "Next JS",
-    icon: (props) => (
-      <FontAwesomeIcon icon={faReact} {...props} style={{ color: "#000000" }} />
-    ),
+    icon: (props) => <SiNextdotjs {...props} style={{ color: "#000000" }} />,
   },
   {
     name: "Laravel",
-    icon: (props) => (
-      <FontAwesomeIcon
-        icon={faLaravel}
-        {...props}
-        style={{ color: "#FF2D20" }}
-      />
-    ),
+    icon: (props) => <SiLaravel {...props} style={{ color: "#FF2D20" }} />,
   },
   {
     name: "Flutter",
-    icon: (props) => (
-      <FontAwesomeIcon
-        icon={faFlutter}
-        {...props}
-        style={{ color: "#027DFD" }}
-      />
-    ),
+    icon: (props) => <SiFlutter {...props} style={{ color: "#027DFD" }} />,
   },
   {
     name: "Git",
-    icon: (props) => (
-      <FontAwesomeIcon
-        icon={faGitAlt}
-        {...props}
-        style={{ color: "#F05032" }}
-      />
-    ),
+    icon: (props) => <SiGit {...props} style={{ color: "#F05032" }} />,
   },
   {
     name: "GitHub",
-    icon: (props) => <FontAwesomeIcon icon={faGithub} {...props} />,
+    icon: (props) => <SiGithub {...props} />,
   },
   {
-    name: "MongoDB",
-    icon: (props) => <Database {...props} style={{ color: "#47A248" }} />,
+    name: "Supabase",
+    icon: (props) => <SiSupabase {...props} style={{ color: "#3ECF8E" }} />,
   },
   {
     name: "MySQL",
-    icon: (props) => <Database {...props} style={{ color: "#4479A1" }} />,
+    icon: (props) => <SiMysql {...props} style={{ color: "#4479A1" }} />,
   },
   {
     name: "PostgreSQL",
-    icon: (props) => <Database {...props} style={{ color: "#4479A1" }} />,
+    icon: (props) => <SiPostgresql {...props} style={{ color: "#4169E1" }} />,
   },
   {
     name: "Firebase",
-    icon: (props) => <Flame {...props} style={{ color: "#FFCA28" }} />,
+    icon: (props) => <SiFirebase {...props} style={{ color: "#FFCA28" }} />,
   },
   {
     name: "Jira",
-    icon: (props) => (
-      <FontAwesomeIcon icon={faJira} {...props} style={{ color: "#027DFD" }} />
-    ),
+    icon: (props) => <SiJira {...props} style={{ color: "#0052CC" }} />,
   },
   {
     name: "Docker",
-    icon: (props) => (
-      <FontAwesomeIcon
-        icon={faDocker}
-        {...props}
-        style={{ color: "#027DFD" }}
-      />
-    ),
+    icon: (props) => <SiDocker {...props} style={{ color: "#2496ED" }} />,
   },
 ];
 
@@ -205,14 +144,14 @@ export const ALL_SKILLS = [...PROGRAMMING_LANGUAGES, ...TECHNOLOGIES];
 export const SOCIAL_LINKS = [
   {
     href: `mailto:${PROFILE_INFO.email}`,
-    icon: faEnvelope,
+    icon: SiGmail,
     label: "Email",
     color:
       "border-red-500/50 hover:border-red-500 text-red-400 hover:glow-green",
   },
   {
     href: PROFILE_INFO.github,
-    icon: faGithub,
+    icon: SiGithub,
     label: "GitHub",
     external: true,
     color:
@@ -220,7 +159,7 @@ export const SOCIAL_LINKS = [
   },
   {
     href: PROFILE_INFO.linkedin,
-    icon: faLinkedin,
+    icon: SiLinkerd,
     label: "LinkedIn",
     external: true,
     color:

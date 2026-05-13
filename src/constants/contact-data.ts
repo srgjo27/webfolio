@@ -1,24 +1,23 @@
 import { ContactMethod } from "@/types/contact";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
+import { SiGmail, SiLinkerd, SiGithub } from "react-icons/si";
 
 export const contactData: ContactMethod[] = [
     {
-        icon: faEnvelope,
+        icon: SiGmail,
         title: "Email",
         value: "josuasiregar0103@gmail.com",
         href: "mailto:josuasiregar0103@gmail.com",
         cta: "Send an Email",
     },
     {
-        icon: faLinkedin,
+        icon: SiLinkerd,
         title: "LinkedIn",
         value: "/in/josua-siregar",
         href: "https://www.linkedin.com/in/josua-siregar/",
         cta: "Connect on LinkedIn",
     },
     {
-        icon: faGithub,
+        icon: SiGithub,
         title: "GitHub",
         value: "/srgjo27",
         href: "https://github.com/srgjo27",

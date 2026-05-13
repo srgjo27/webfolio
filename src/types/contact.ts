@@ -1,7 +1,7 @@
-import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { IconType } from "react-icons";
 
 export interface ContactMethod {
-    icon: IconDefinition;
+    icon: IconType;
     title: string;
     value: string;
     href: string;

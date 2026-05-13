@@ -24,14 +24,8 @@ export function Sidebar({ items, side }: SidebarProps) {
     side === "left" ? "border-r border-border/40" : "border-l border-border/40",
   );
 
-  const gradientClasses = cn(
-    "absolute inset-y-0 w-px bg-gradient-to-b from-transparent via-primary/30 to-transparent pointer-events-none",
-    side === "left" ? "right-0" : "left-0",
-  );
-
   return (
     <aside className={sidebarClasses}>
-      <div className={gradientClasses} />
       <nav
         className="relative z-10 flex flex-col items-center gap-4"
         role="navigation"
@@ -48,7 +42,6 @@ export function Sidebar({ items, side }: SidebarProps) {
             />
           ))}
       </nav>
-      {side === "right" && <StatusIndicator />}
     </aside>
   );
 }
@@ -102,20 +95,5 @@ function HexagonIcon({ isActive }: { isActive: boolean }) {
     <svg viewBox={HEXAGON_VIEWBOX} className={iconClasses} aria-hidden="true">
       <polygon points={HEXAGON_POLYGON_POINTS} />
     </svg>
-  );
-}
-
-function StatusIndicator() {
-  return (
-    <div
-      className="absolute bottom-8 flex items-center gap-2 font-code text-sm text-green-400"
-      role="status"
-      aria-label="System status"
-    >
-      <span className="relative flex h-2 w-2">
-        <span className="animate-status-blink absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-        <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
-      </span>
-    </div>
   );
 }

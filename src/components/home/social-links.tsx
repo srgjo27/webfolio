@@ -1,12 +1,11 @@
 "use client";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SOCIAL_LINKS } from "@/constants/home-data";
 
 export function SocialLinks() {
   return (
     <div className="flex items-center gap-3">
-      {SOCIAL_LINKS.map(({ href, icon, label, external, color }) => (
+      {SOCIAL_LINKS.map(({ href, icon: Icon, label, external, color }) => (
         <a
           key={href}
           href={href}
@@ -15,7 +14,7 @@ export function SocialLinks() {
                      transition-all duration-300 hover:scale-110 ${color}`}
           aria-label={label}
         >
-          <FontAwesomeIcon icon={icon} className="h-4 w-4 relative z-10" />
+          <Icon className="h-4 w-4 relative z-10" />
 
           <div
             className="absolute -top-10 left-1/2 transform -translate-x-1/2 px-3 py-1 
